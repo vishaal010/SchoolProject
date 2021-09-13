@@ -8,7 +8,7 @@
     <title>Fotografie</title>
     <link rel="stylesheet" href="{{asset('css/app.css') }}">
 </head>
-<body class="text-gray-600">
+<body class="text-gray-600 font-body">
 
 <div>
     <div>
@@ -40,14 +40,16 @@
 
 
     <main class="px-16 py-6">
-        <div>
-            <a href="#">Login</a>
-            <a href="#">Register</a>
+        <div class="flex justify-end">
+            <a href="#" class="text-primary">Login</a>
+            <a href="#" class="text-primary ml-2">Register</a>
         </div>
 
+
+
         <header>
-            <h4 class="text-gray-700 text-6x1 font-semibold">Vind mooie Fotografie</h4>
-            <h4 class="text-2x1 font-semibold">Door verschillende mensen</h4>
+            <h1 class="text-gray-700 text-6x1 font-semibold">Vind mooie Fotografie</h1>
+            <h2 class="text-2x1 font-semibold">Door verschillende mensen</h2>
         </header>
 
         <div>
@@ -66,8 +68,8 @@
         <div class="mt-8">
         <!-- Cards -->
         </div>
-            <div>
-                <div>
+            <div class="flex justify-center">
+                <div class="bg-secondary-100 text-secondary-200">
                     Laad meer
                 </div>
             </div>
