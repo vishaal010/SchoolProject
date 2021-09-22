@@ -13,6 +13,7 @@
 
 <div class="grid md:grid-cols-3">
     <div class="md:col-span-1 md:flex md:justify-end">
+{{--        @can('logged-in')--}}
         <nav class="text-right">
             <div class="flex justify-between item-center">
                 <h1 class="font-bold uppercase p-4 border-b border-gray-100">
@@ -42,6 +43,7 @@
                 </li>
             </ul>
         </nav>
+{{--            @endcan--}}
     </div>
 
     <body class="text-gray-600 font-body">

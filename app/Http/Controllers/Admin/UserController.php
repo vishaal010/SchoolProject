@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Actions\Fortify\CreateNewUser;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUserRequest;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class UserController extends Controller
 {
@@ -18,8 +20,16 @@ class UserController extends Controller
     public function index()
     {
         $users = User::paginate(10);
+        if (Gate::denies('logged-in')){
 
-        return view('admin.users.index',['users' => $users]);
+        }
+
+        if(Gate::allows('is-admin')){
+           return view('admin.users.index',['users' => $users]);
+        }
+
+        dd('je moet admin zijn');
+
     }
 
     /**
@@ -40,10 +50,13 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
-        $validatedData = $request->validated();
+//        $validatedData = $request->validated();
+//
+//        $user = User::create($validatedData);
 
+        $newUser = new CreateNewUser();
 
-        $user = User::create($validatedData);
+        $user = $newUser->create($request->only(['name', 'email', 'password', 'password_confirmation']));
 
         $user->roles()->sync($request->roles);
 
