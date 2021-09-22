@@ -4,7 +4,8 @@
         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-username">
             Gebruikersnaam
         </label>
-        <input name="name" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="username" type="text" placeholder="piet123" value="{{ old('username') }}">
+        <input name="name" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="username" type="text" placeholder="piet123"
+               value="{{ old('username') }} @isset($user) {{$user->name}}@endisset">
         <p class="text-gray-600 text-xs italic">Hiermee log je in</p>
     </div>
 </div>
@@ -18,7 +19,8 @@
         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="email">
             Email
         </label>
-        <input name="email" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="email" type="email" placeholder="piet@gmail.com" value="{{ old('email') }}">
+        <input name="email" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="email" type="email" placeholder="piet@gmail.com"
+               value="{{ old('email') }} @isset($user) {{$user->email}}@endisset ">
         @error('email')
         <p class="text-red-500 text-xs italic">
             {{ $message }}
@@ -28,6 +30,7 @@
 </div>
 
 @enderror
+@isset($create)
 <div class="flex flex-wrap -mx-3 mb-6">
     <div class="w-full px-3">
         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
@@ -42,6 +45,7 @@
         <p class="text-gray-600 text-xs italic">Een wachtwoord wat je makkelijk kan onthouden</p>
     </div>
 </div>
+@endisset
 
 <div class="flex flex-wrap -mx-3 mb-6">
     <div class="w-full px-3">
@@ -49,7 +53,8 @@
             Role
         </label>
         @foreach($roles as $role)
-            <input class="" name="roles[]" type="checkbox" value="{{$role->id}}" id="{{$role->name}}">
+            <input class="" name="roles[]" type="checkbox" value="{{$role->id}}" id="{{$role->name}}"
+                @isset($user) @if(in_array($role->id, $user->roles->pluck('id')->toArray())) checked @endif @endisset>
             <label class="" for="{{$role->name}}"> {{$role->name}} </label> <br>
         @endforeach
         <p class="text-gray-600 text-xs italic">Een wachtwoord wat je makkelijk kan onthouden</p>

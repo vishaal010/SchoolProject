@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreUserRequest;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -37,11 +38,17 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreUserRequest $request)
     {
-        $user = User::create($request->except(['_token', 'roles']));
+        $validatedData = $request->validated();
+
+
+        $user = User::create($validatedData);
 
         $user->roles()->sync($request->roles);
+
+        $request->session()->flash('success', 'Gebruiker is aangemaakt');
+
 
         return redirect(route('admin.users.index'));
     }
@@ -65,7 +72,12 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('admin.users.edit',
+            [
+                'roles' => Role::all(),
+                'user' => User::find($id)
+            ]);
+
     }
 
     /**
@@ -77,7 +89,15 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = User::findorFail($id);
+
+        $user->update($request->except(['_token', 'roles']));
+        $user->roles()->sync($request->roles);
+
+        $request->session()->flash('success', 'Gebruiker is bewerkt');
+
+
+        return redirect(route('admin.users.index'));
     }
 
     /**
@@ -86,9 +106,11 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, Request $request)
     {
         User::destroy($id);
+        $request->session()->flash('success', 'Gebruiker is verwijderd');
+
         return redirect(route('admin.users.index'));
     }
 }

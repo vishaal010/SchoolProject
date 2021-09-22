@@ -65,7 +65,7 @@
         </div>
 
 
-
+@include('partials.alerts')
 @yield('content')
 
 @yield('register')
