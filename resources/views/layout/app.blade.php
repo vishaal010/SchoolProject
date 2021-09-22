@@ -49,25 +49,28 @@
     <main class=" flex-grow px-16 py-6 bg-gray-100 md:col-span-2">
         <div class="flex justify-center md:justify-end">
             @if (Route::has('login'))
+                @auth
+                <a href="{{url('home')}}" class="text-primary btn border-primary md:border-2 hover:bg-primary hover:text-white transition ease-out duration-500">Home</a>
+                <a href="{{route('logout')}}" onclick="event.preventDefault(); document.getElementById('logout-form').submit()" class="text-primary ml-2 btn border-primary md:border-2 hover:bg-primary hover:text-white transition ease-out duration-500">Logout</a>
+                    <form id="logout-form" action="{{route('logout')}}" method="post" style="display: none">
+                    @csrf
+                    </form>
+
+                @else
                 <a href="{{route('login')}}" class="text-primary btn border-primary md:border-2 hover:bg-primary hover:text-white transition ease-out duration-500">Login</a>
                 @if(Route::has('register'))
                     <a href="{{route('register') }}" class="text-primary ml-2 btn border-primary md:border-2 hover:bg-primary hover:text-white transition ease-out duration-500">Register</a>
+                    @endif
+                @endif
         </div>
-        @endif
-        @endif
 
 
-        <header>
-            <h1 class="text-gray-700 text-6x1 font-semibold">Vind mooie Fotografie</h1>
-            <h2 class="text-2x1 font-semibold">Door verschillende mensen</h2>
-        </header>
 
 @yield('content')
 
 @yield('register')
     </main>
-</div>
-
+</div>  @endauth
 
 <footer class="text-gray-100 bg-gray-800 bottom-0">
     <div class="max-w-3xl mx-auto py-6">

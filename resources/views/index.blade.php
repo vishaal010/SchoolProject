@@ -3,7 +3,10 @@
 @section('content')
 
 
-
+    <header>
+        <h1 class="text-gray-700 text-6x1 font-semibold">Vind mooie Fotografie</h1>
+        <h2 class="text-2x1 font-semibold">Door verschillende mensen</h2>
+    </header>
 
         <div>
             <h4 class="font-bold mt-12 pb-2 border-b border-gray-200"> Laatste Foto's</h4>
@@ -30,7 +33,6 @@
 
 
 
-
 {{--                <div class="card hover:shadow-lg">--}}
 {{--                    <img src="#" alt="" class="w-full h-32 sm:h-48 object-cover ">--}}
 {{--                    <div class="m-4 ">--}}
@@ -47,7 +49,6 @@
             </div>
             <h4 class="font-bold mt-12 pb-2 border-b border-gray-200">Populaire Foto's</h4>
         <div class="mt-8">
-        <!-- Cards -->
         </div>
             <div class="flex justify-center">
                 <div class="text-center my-6 btn bg-secondary-100 text-secondary-200 hover:shadow-inner transform hover:scale-75 hover:bg-opacity-50 transition ease-out duration-300">
