@@ -51,7 +51,9 @@ class PhotographyController extends Controller
      */
     public function show($id)
     {
-        //
+        $photo = photography::find($id);
+
+        return view('photography.show')->with('photo',$photo);
     }
 
     /**

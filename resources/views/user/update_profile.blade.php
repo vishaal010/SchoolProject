@@ -3,57 +3,68 @@
 @section('register')
 
     <div class="font-bold mt-12 pb-2 border-b border-gray-200">
-        <h1>Wachtwoord reset</h1>
+        <h1>Update profile</h1>
     </div>
     <div class="mt-8">
     </div>
-    <form class="w-full max-w-lg" method="POST" action="{{ url('reset-password') }}">
+    <form class="w-full max-w-lg" method="POST" action="{{ route('user-profile-information.update') }}">
         @csrf
-        <input type="hidden" name="token" value="{{ $request->token }}">
+        @method('PUT')
+{{--        <div class="flex flex-wrap -mx-3 mb-6">--}}
+{{--            <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">--}}
+{{--                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">--}}
+{{--                    Voornaam--}}
+{{--                </label>--}}
+
+{{--                <input name="first_name" class="appearance-none block w-full bg-gray-200 text-gray-700 border @error('first_name') border border-red-500  @enderror rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="first_name" type="text" placeholder="Jane" value="{{ old('first_name') }}">--}}
+{{--            </div>--}}
+{{--            @error('first_name')--}}
+{{--                         <p class="text-red-500 text-xs italic">--}}
+{{--            {{ $message }}--}}
+{{--            </p>--}}
+{{--           @enderror--}}
+{{--            <div class="w-full md:w-1/2 px-3">--}}
+{{--                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">--}}
+{{--                    Achternaam--}}
+{{--                </label>--}}
+{{--                <input name="last_name" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="last_name" type="text" placeholder="Doe" value="{{ old('last_name') }}">--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--        @error('last_name')--}}
+{{--        <p class="text-red-500 text-xs italic">--}}
+{{--            {{ $message }}--}}
+{{--        </p>--}}
+{{--        @enderror--}}
+        <div class="flex flex-wrap -mx-3 mb-6">
+            <div class="w-full px-3">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-username">
+                    Gebruikersnaam
+                </label>
+                <input name="name" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="username" type="text" placeholder="piet123" value="{{ auth()->user->name }}">
+                <p class="text-gray-600 text-xs italic">Hiermee log je in</p>
+            </div>
+        </div>
+        @error('name')
+        <p class="text-red-500 text-xs italic">
+            {{ $message }}
+        </p>
+        @enderror
         <div class="flex flex-wrap -mx-3 mb-6">
             <div class="w-full px-3">
                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="email">
                     Email
                 </label>
-                <input name="email" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="email" type="email" placeholder="piet@gmail.com" value="{{ $request->email}}">
+                <input name="email" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="email" type="email" placeholder="piet@gmail.com" value="{{ auth()->user->email  }}">
                 @error('email')
                 <p class="text-red-500 text-xs italic">
                     {{ $message }}
                 </p>
-                <p class="text-gray-600 text-xs italic">lorem</p>
+                <p class="text-gray-600 text-xs italic">loremt</p>
             </div>
         </div>
 
         @enderror
-        <div class="flex flex-wrap -mx-3 mb-6">
-            <div class="w-full px-3">
-                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
-                    Wachtwoord
-                </label>
-                <input name="password" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="password" type="password" placeholder="" >
-                @error('password')
-                <p class="text-red-500 text-xs italic">
-                    {{ $message }}
-                </p>
-                @enderror
-                <p class="text-gray-600 text-xs italic">Een wachtwoord wat je makkelijk kan onthouden</p>
-            </div>
-        </div>
 
-        <div class="flex flex-wrap -mx-3 mb-6">
-            <div class="w-full px-3">
-                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
-                    Wachtwoord herhalen
-                </label>
-                <input name="password_confirmation" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="password_repeat" type="password" placeholder="******************" >
-                @error('password_confirmation')
-                <p class="text-red-500 text-xs italic">
-                    {{ $message }}
-                </p>
-                @enderror
-                <p class="text-gray-600 text-xs italic">Herhaal het wachtwoord dat je hebt ingetypt</p>
-            </div>
-        </div>
 
 {{--        <div class="flex flex-wrap -mx-3 mb-2">--}}
 {{--            <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">--}}

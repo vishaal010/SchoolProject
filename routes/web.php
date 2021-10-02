@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PhotographyController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\User\Profile;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -15,12 +17,22 @@ use App\Http\Controllers\Admin\UserController;
 |
 */
 
-Route::resource('/', PhotographyController::class);
+Route::resource('/', \App\Http\Controllers\HomeController::class);
 
-Route::resource('/admin/users', UserController::class);
 
+Route::resource('/photography', PhotographyController::class);
+
+
+
+
+// User related pages
+Route::prefix('user')->middleware(['auth', 'verified'])->name('user.')->group(function (){
+Route::get('profile', Profile::class)->name('profile');
+
+
+});
 
 // Admin Route
-Route::prefix('admin')->middleware(['auth', 'auth.isAdmin'])->name('admin.')->group(function (){
+Route::prefix('admin')->middleware(['auth', 'auth.isAdmin','verified'])->name('admin.')->group(function (){
     Route::resource('users', UserController::class);
 });
