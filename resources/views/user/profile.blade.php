@@ -40,7 +40,7 @@
                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-username">
                     Gebruikersnaam
                 </label>
-                <input name="name" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="username" type="text" placeholder="piet123" value="{{ auth()->user->name }}">
+                <input name="name" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="username" type="text" placeholder="piet123" value="{{ Auth::user()->name }}">
                 <p class="text-gray-600 text-xs italic">Hiermee log je in</p>
             </div>
         </div>
@@ -54,7 +54,7 @@
                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="email">
                     Email
                 </label>
-                <input name="email" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="email" type="email" placeholder="piet@gmail.com" value="{{ auth()->user->email  }}">
+                <input name="email" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="email" type="email" placeholder="piet@gmail.com" value="{{ Auth::user()->email  }}">
                 @error('email')
                 <p class="text-red-500 text-xs italic">
                     {{ $message }}

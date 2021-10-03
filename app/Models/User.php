@@ -115,7 +115,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function photographieModels()
     {
-        return $this->hasMany(photography::class);
+        return $this->hasMany(photo::class);
     }
 
 }

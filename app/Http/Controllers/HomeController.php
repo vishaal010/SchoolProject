@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\photography;
+use App\Models\photo;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -10,10 +10,10 @@ class HomeController extends Controller
     public function index()
     {
         // Select * FROM photographies
-        $photography = photography::all();
+        $photography = photo::all();
 
         return view('index', [
-            'photography' => $photography
+            'photo' => $photography
         ]);
     }
 }

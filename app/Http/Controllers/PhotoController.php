@@ -2,16 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Tags;
+use App\Models\Tag;
 use App\Models\User;
-use Barryvdh\Reflection\DocBlock\Tag;
 use Illuminate\Http\Request;
-use App\Models\photography;
+use App\Models\photo;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 
-class PhotographyController extends Controller
+class PhotoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,13 +19,21 @@ class PhotographyController extends Controller
      */
     public function index()
     {
-        // Select * FROM photographies
-        $photography = photography::all();
+        $userid = Auth::user()->id;
 
-        return view('index', [
-            '$photography' => $photography
+        // Select * FROM photographies
+        $photo = DB::table('photo')->where('user_id',$userid)->get();
+  
+
+
+        return view('user.showcase', [
+            'photo' => $photo
         ]);
     }
+
+//->join('users', 'user_id', '=', 'users.user_id')
+//->join('photo_tag', 'photo_id', '=', 'photo_tag.user_id')
+//->where('id',$userid );
 
     /**
      * Show the form for creating a new resource.
@@ -35,9 +42,9 @@ class PhotographyController extends Controller
      */
     public function create()
     {
-        $tags = Tags::all();
+        $tags = Tag::all();
 
-        return view('photography.create', ['tags' => $tags]);
+        return view('photo.create', ['tags' => $tags]);
 
     }
 
@@ -54,17 +61,22 @@ class PhotographyController extends Controller
         'user_id' => 'required',
         'location' => 'required',
         'description' => 'required',
-        'imagepath' => 'required',
+        'imagepath' => 'required|mimes:jpg,png,jpeg|max:5048'
     ]);
 
+    $newImageName = time() . '-' . $request->name . '.' . $request->imagepath->extension();
 
-        $tags = Tags::all();
-      $photo =  photography::create([
+    $test = $request->imagepath->move(public_path('images'), $newImageName);
+
+
+
+        $tags = Tag::all();
+      $photo =  photo::create([
           'name' => $request->input('name'),
           'user_id' => $request->input('user_id'),
           'location'=> $request->input('location'),
           'description'=> $request->input('description'),
-          'imagepath'=> $request->input('imagepath'),
+          'imagepath'=> $newImageName
       ]);
 
        $photo->tags()->sync($request->tags);
@@ -81,9 +93,9 @@ class PhotographyController extends Controller
      */
     public function show($id)
     {
-        $photo = photography::find($id);
+        $photo = photo::find($id);
 
-        return view('photography.show')->with('photo',$photo);
+        return view('photo.show')->with('photo',$photo);
     }
 
     /**

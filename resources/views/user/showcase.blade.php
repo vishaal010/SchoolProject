@@ -9,7 +9,7 @@
     </header>
 
         <div>
-            <h4 class="font-bold mt-12 pb-2 border-b border-gray-200"> Laatste Foto's</h4>
+            <h4 class="font-bold mt-12 pb-2 border-b border-gray-200"> Foto's van {{ Auth::user()->name }}</h4>
             <div class="mt-8 grid lg:grid-cols-3 gap-10">
                 @foreach($photo as $photo)
                 <!-- Cards -->

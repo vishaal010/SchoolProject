@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PhotographyController;
+use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\User\Profile;
 
@@ -20,7 +20,7 @@ use App\Http\Controllers\User\Profile;
 Route::resource('/', \App\Http\Controllers\HomeController::class);
 
 
-Route::resource('/photography', PhotographyController::class);
+Route::resource('/photo', PhotoController::class);
 
 
 
