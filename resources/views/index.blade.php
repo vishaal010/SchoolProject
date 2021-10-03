@@ -11,7 +11,7 @@
         <div>
             <h4 class="font-bold mt-12 pb-2 border-b border-gray-200"> Laatste Foto's</h4>
             <div class="mt-8 grid lg:grid-cols-3 gap-10">
-                @foreach($photographies as $photo)
+                @foreach($photography as $photo)
                 <!-- Cards -->
                 <div class="card hover:shadow-lg">
                     <img src="#" alt="" class="w-full h-32 sm:h-48 object-cover ">

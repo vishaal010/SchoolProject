@@ -2,8 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Tags;
+use App\Models\User;
+use Barryvdh\Reflection\DocBlock\Tag;
 use Illuminate\Http\Request;
 use App\Models\photography;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+
 
 class PhotographyController extends Controller
 {
@@ -15,10 +21,10 @@ class PhotographyController extends Controller
     public function index()
     {
         // Select * FROM photographies
-        $photographies = photography::all();
+        $photography = photography::all();
 
         return view('index', [
-            'photographies' => $photographies
+            '$photography' => $photography
         ]);
     }
 
@@ -29,7 +35,10 @@ class PhotographyController extends Controller
      */
     public function create()
     {
-        //
+        $tags = Tags::all();
+
+        return view('photography.create', ['tags' => $tags]);
+
     }
 
     /**
@@ -40,7 +49,28 @@ class PhotographyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+    $request->validate([
+        'name' => 'required',
+        'user_id' => 'required',
+        'location' => 'required',
+        'description' => 'required',
+        'imagepath' => 'required',
+    ]);
+
+
+        $tags = Tags::all();
+      $photo =  photography::create([
+          'name' => $request->input('name'),
+          'user_id' => $request->input('user_id'),
+          'location'=> $request->input('location'),
+          'description'=> $request->input('description'),
+          'imagepath'=> $request->input('imagepath'),
+      ]);
+
+       $photo->tags()->sync($request->tags);
+
+        return redirect(route('index'));
+
     }
 
     /**

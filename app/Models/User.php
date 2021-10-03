@@ -82,6 +82,13 @@ class User extends Authenticatable implements MustVerifyEmail
 //        $this->attributes['password'] = Hash::make($password);
 //    }
 
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+
     public function roles()
     {
         return $this->belongsToMany('App\Models\Role');

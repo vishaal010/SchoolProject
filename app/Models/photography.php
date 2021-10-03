@@ -27,13 +27,24 @@ class photography extends Model
 {
     use HasFactory;
 
-    protected $table = 'photographies';
+    protected $table = 'photo';
 
     protected $primaryKey = 'id';
+
+    protected $fillable = ['name', 'user_id', 'location', 'description', 'imagepath'];
+
+    public $timestamps = false;
+
+
 
     public function user()
     {
         return $this->belongsTo(user::class);
+    }
+
+    public function tags()
+    {
+        return $this->belongsToMany('App\Models\Tags');
     }
 
 

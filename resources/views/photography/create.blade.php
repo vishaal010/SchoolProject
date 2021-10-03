@@ -7,8 +7,8 @@
     </div>
     <div class="mt-8">
     </div>
-    <form class="w-full max-w-lg" method="POST" action="{{ route('admin.users.store') }}">
-       @include('admin.users.partials.form', ['create' => true])
+    <form class="w-full max-w-lg" method="POST" action="{{ route('photography.store')  }}">
+       @include('photography.partials.form', ['create' => true])
     </form>
     <div class="mt-7">
     </div>

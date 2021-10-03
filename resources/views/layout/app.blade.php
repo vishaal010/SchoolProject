@@ -54,6 +54,7 @@
                 @auth
 
                 <a href="{{url('home')}}" class="text-primary btn border-primary md:border-2 hover:bg-primary hover:text-white transition ease-out duration-500">Home</a>
+                <a href="{{route('photography.create')}}" class="text-primary btn border-primary md:border-2 hover:bg-primary hover:text-white transition ease-out duration-500">Upload een foto</a>
                 <a href="{{route('logout')}}" onclick="event.preventDefault(); document.getElementById('logout-form').submit()" class="text-primary ml-2 btn border-primary md:border-2 hover:bg-primary hover:text-white transition ease-out duration-500">Logout</a>
 
 
