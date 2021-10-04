@@ -41,7 +41,7 @@
                         </thead>
 
                         <tbody class="bg-white divide-y divide-gray-200">
-                        @foreach($users as $user)
+                        @foreach($role as $role)
 
                             <tr>
                             <td class="px-6 py-4 whitespace-nowrap">
@@ -62,16 +62,11 @@
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
                 <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                    @if($user->status == 1)
-                        <a href="{{ route('user.status.update', [$user->id , 'status_code' => 0]) }}"> Active </a>
-                    @else
-                        <a href="{{ route('user.status.update', [$user->id , 'status_code' => 1]) }}"> Not Active</a>
-
-                    @endif
+                  Active
                 </span>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                            {{ $user->name }}
+                            {{ $user->role->name }}
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                 <a href="{{ route('admin.users.edit', $user->id) }}" class="text-indigo-600 hover:text-indigo-900">Edit</a>

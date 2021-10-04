@@ -8,8 +8,36 @@
         <h2 class="text-2x1 font-semibold">Door verschillende mensen</h2>
     </header>
 
+
+
         <div>
-            <h4 class="font-bold mt-12 pb-2 border-b border-gray-200"> Laatste Foto's</h4>
+            <form method="GET" action="{{url('/')}}">
+            <h4 class="font-bold mt-12 pb-2 border-b border-gray-200"> Zoek Foto's</h4>
+            <div class="pt-2 relative mx-auto text-gray-600">
+                <input name="search" class="border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none"
+                       type="search" name="search" placeholder="Search">
+                <button type="submit" class="absolute right-0 top-0 mt-5 mr-4">
+                    <svg class="text-gray-600 h-4 w-4 fill-current" xmlns="http://www.w3.org/2000/svg"
+                         xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px"
+                         viewBox="0 0 56.966 56.966" style="enable-background:new 0 0 56.966 56.966;" xml:space="preserve"
+                         width="512px" height="512px">
+            <path
+                d="M55.146,51.887L41.588,37.786c3.486-4.144,5.396-9.358,5.396-14.786c0-12.682-10.318-23-23-23s-23,10.318-23,23  s10.318,23,23,23c4.761,0,9.298-1.436,13.177-4.162l13.661,14.208c0.571,0.593,1.339,0.92,2.162,0.92  c0.779,0,1.518-0.297,2.079-0.837C56.255,54.982,56.293,53.08,55.146,51.887z M23.984,6c9.374,0,17,7.626,17,17s-7.626,17-17,17  s-17-7.626-17-17S14.61,6,23.984,6z" />
+          </svg>
+                </button>
+            </div>
+            </form>
+            <div class="font-bold mt-12 pb-2 border-b border-gray-200">
+                <h2> Tags: </h2>
+            </div>
+            @forelse($tag as $tag)
+                <div
+                     class="ml-2 text-xs inline-flex items-center font-bold leading-sm uppercase px-3 py-1 rounded-full bg-white text-gray-700 border">
+                    {{ $tag->name }}
+                </div>
+            @empty
+                <p> Geen Tags </p>
+            @endforelse
             <div class="mt-8 grid lg:grid-cols-3 gap-10">
                 @foreach($photo as $photo)
                 <!-- Cards -->
@@ -21,6 +49,10 @@
                         <div class="btn bg-secondary-100 text-secondary-200 hover:shadow-iner transform hover:scale-125 hover:bg-opacity-50 transition ease-out duration-300">
                            <a href="/photo/{{ $photo->id }}"> Details </a>
                         </div>
+                        <button class="inline-flex items-center h-10 px-5 text-indigo-100 transition-colors duration-150 bg-indigo-700 rounded-lg focus:shadow-outline hover:bg-indigo-800">
+                            <svg class="w-4 h-4 mr-3 fill-current" viewBox="0 0 20 20"><path d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd" fill-rule="evenodd"></path></svg>
+                            <span>Like</span>
+                        </button>
                     </div>
                     <div class="badge">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-5 inline-block" fill="none" viewBox="0 0 24 24" stroke="currentColor">

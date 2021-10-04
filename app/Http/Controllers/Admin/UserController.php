@@ -7,9 +7,13 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUserRequest;
 use App\Models\Role;
 use App\Models\User;
+use GrahamCampbell\ResultType\Success;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Facades\DB;
+use Ramsey\Uuid\Type\Integer;
+
 
 class UserController extends Controller
 {
@@ -20,13 +24,44 @@ class UserController extends Controller
      */
     public function index()
     {
+        $role = DB::table('users')
+        ->select('name')
+        ->join('roles', 'role_user.role_id', '=', 'roles.id')
+        ->join('users', 'role_user.user_id', '=' ,'users.id')
+        ->toSql();
+
+
+
+
+
+
+//        select * from `role_user` inner join `roles` on `role_user`.`id` = `roles`.`id`;
+
+//        select * from `role_user`
+//inner join `roles` on `roles_user`.`id` = `roles`.`id`
+//inner join `users` on `roles_user`.`id` = `users`.`id`
+
+//        select * from `role_user`
+//        inner join `roles` on `role_user`.`role_id` = `roles`.`id`
+//        inner join `users` on `role_user`.`user_id` = `users`.`id`;
+
+//        select * from `role_user`
+// inner join `roles` on `role_user`.`role_id` = `roles`.`id`
+// inner join `users` on `role_user`.`user_id` = `users`.`id`
+
+//        select `role_id`, `user_id` from `role_user`
+//        inner join `roles` on `role_user`.`role_id` = `roles`.`id`
+//        inner join `users` on `role_user`.`user_id` = `users`.`id`;
+
+
+
         $users = User::paginate(10);
         if (Gate::denies('logged-in')){
 
         }
 
         if(Gate::allows('is-admin')){
-           return view('admin.users.index',['users' => $users]);
+           return view('admin.users.index',['users' => $users, 'role' => $role]);
         }
 
         dd('je moet admin zijn');
@@ -77,7 +112,16 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $role = DB::table('users')
+            ->select('name')
+            ->join('roles', 'role_user.role_id', '=', 'roles.id')
+            ->join('users', 'role_user.user_id', '=' ,'users.id')
+            ->toSql();
+
+
+        if(Gate::allows('is-admin')){
+            return view('admin.users.index',['role' => $role]);
+        }
     }
 
     /**
@@ -129,4 +173,29 @@ class UserController extends Controller
 
         return redirect(route('admin.users.index'));
     }
+
+    /**
+     * To Update Status of User
+     * @param Integer $user_id
+     * @param Integer $status_code
+     * @return Success Response.
+     */
+
+    public function updateStatus($user_id, $status_code)
+    {
+        try {
+            $update_user = User::whereId($user_id)->update([
+                'status' => $status_code
+            ]);
+
+            if ($update_user){
+                return redirect()->route('admin.users.index')->with('succes', 'Gelukt');
+            }
+            return redirect()->route('admin.users.index')->with('error', 'Gefaald');
+
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
 }

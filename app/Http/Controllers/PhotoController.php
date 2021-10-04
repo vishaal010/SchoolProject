@@ -23,7 +23,7 @@ class PhotoController extends Controller
 
         // Select * FROM photographies
         $photo = DB::table('photo')->where('user_id',$userid)->get();
-  
+
 
 
         return view('user.showcase', [
@@ -31,9 +31,6 @@ class PhotoController extends Controller
         ]);
     }
 
-//->join('users', 'user_id', '=', 'users.user_id')
-//->join('photo_tag', 'photo_id', '=', 'photo_tag.user_id')
-//->where('id',$userid );
 
     /**
      * Show the form for creating a new resource.
@@ -131,4 +128,11 @@ class PhotoController extends Controller
     {
         //
     }
+
+    public function search()
+    {
+        //
+    }
+
+
 }
