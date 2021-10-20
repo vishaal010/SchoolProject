@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Tag;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\photo;
 use Illuminate\Support\Facades\Auth;
@@ -53,6 +54,7 @@ class PhotoController extends Controller
      */
     public function store(Request $request)
     {
+
     $request->validate([
         'name' => 'required',
         'user_id' => 'required',
@@ -78,7 +80,7 @@ class PhotoController extends Controller
 
        $photo->tags()->sync($request->tags);
 
-        return redirect(route('index'));
+        return redirect('photo');
 
     }
 
@@ -90,6 +92,7 @@ class PhotoController extends Controller
      */
     public function show($id)
     {
+        $user_id = User::findOrFail($id);
         $photo = photo::find($id);
 
         return view('photo.show')->with('photo',$photo);
@@ -103,7 +106,7 @@ class PhotoController extends Controller
      */
     public function edit($id)
     {
-        //
+
     }
 
     /**
@@ -124,15 +127,20 @@ class PhotoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, Request $request)
     {
-        //
+        Photo::destroy($id);
+
+        $request->session()->flash('success', 'Gebruiker is verwijderd');
+
+        return redirect('photo');
     }
 
-    public function search()
+    public function validation ()
     {
-        //
+        return Carbon::createFromTimestamp(-1)->toDateTimeString();
     }
+
 
 
 }

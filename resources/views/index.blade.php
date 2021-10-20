@@ -47,7 +47,7 @@
                         <span class="font-bold"> {{ $photo->name }}</span>
                         <span class="block text-gray-500 text-sm"> Foto gemaakt door </span>
                         <div class="btn bg-secondary-100 text-secondary-200 hover:shadow-iner transform hover:scale-125 hover:bg-opacity-50 transition ease-out duration-300">
-                           <a href="/photo/{{ $photo->id }}"> Details </a>
+                           <a href="/photo/{{ $photo->id}}"> Details </a>
                         </div>
 
                     </div>

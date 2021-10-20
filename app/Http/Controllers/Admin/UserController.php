@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\DB;
 use Ramsey\Uuid\Type\Integer;
 
 
+
+
 class UserController extends Controller
 {
     /**
@@ -24,44 +26,25 @@ class UserController extends Controller
      */
     public function index()
     {
-        $role = DB::table('users')
-        ->select('name')
-        ->join('roles', 'role_user.role_id', '=', 'roles.id')
-        ->join('users', 'role_user.user_id', '=' ,'users.id')
-        ->toSql();
+//        $role = DB::table('users')
+//        ->select('name')
+//        ->join('roles', 'role_user.role_id', '=', 'roles.id')
+//        ->join('users', 'role_user.user_id', '=' ,'users.id')
+//        ->toSql();
+//
+//        $users->first()->name;
+//        $users->first()->roles->first()->name;
 
 
+        $users = User::with('roles')->paginate(10);
 
 
-
-
-//        select * from `role_user` inner join `roles` on `role_user`.`id` = `roles`.`id`;
-
-//        select * from `role_user`
-//inner join `roles` on `roles_user`.`id` = `roles`.`id`
-//inner join `users` on `roles_user`.`id` = `users`.`id`
-
-//        select * from `role_user`
-//        inner join `roles` on `role_user`.`role_id` = `roles`.`id`
-//        inner join `users` on `role_user`.`user_id` = `users`.`id`;
-
-//        select * from `role_user`
-// inner join `roles` on `role_user`.`role_id` = `roles`.`id`
-// inner join `users` on `role_user`.`user_id` = `users`.`id`
-
-//        select `role_id`, `user_id` from `role_user`
-//        inner join `roles` on `role_user`.`role_id` = `roles`.`id`
-//        inner join `users` on `role_user`.`user_id` = `users`.`id`;
-
-
-
-        $users = User::paginate(10);
         if (Gate::denies('logged-in')){
 
         }
 
         if(Gate::allows('is-admin')){
-           return view('admin.users.index',['users' => $users, 'role' => $role]);
+           return view('admin.users.index',['users' => $users]);
         }
 
         dd('je moet admin zijn');

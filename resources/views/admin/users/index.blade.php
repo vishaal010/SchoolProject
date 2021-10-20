@@ -37,6 +37,10 @@
                             <th scope="col" class="relative px-9 py-5">
                                 <span class="sr-only">Delete</span>
                             </th>
+                            <th scope="col" class="relative px-9 py-5">
+                                <span class="sr-only">Collectie</span>
+                            </th>
+
                         </tr>
                         </thead>
 
@@ -71,7 +75,7 @@
                 </span>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                            {{ $user->name }}
+                            {{  $users->first()->roles->first()->name }}
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                 <a href="{{ route('admin.users.edit', $user->id) }}" class="text-indigo-600 hover:text-indigo-900">Edit</a>
@@ -84,6 +88,9 @@
                                     @csrf
                                         @method('DELETE')
                                     </form>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                    <a href="{{ route('admin.users.edit', $user->id) }}" class="text-indigo-600 hover:text-indigo-900">Collectie</a>
                                 </td>
                         </tr>
 

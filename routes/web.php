@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ReviewController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\Admin\UserController;
@@ -23,10 +24,16 @@ Route::get('/', \App\Http\Controllers\HomeController::class);
 
 Route::resource('/photo', PhotoController::class);
 
+Route::get('/photo/{photo_id}/{user_id}', [PhotoController::class,'show'])->name('photo.view');
+
+Route::get('/review/{photo_id}',[ReviewController::class,'create'])->name('review.make');
+
+
+Route::resource('/review', ReviewController::class);
+
 Route::get('/tag/{tag}' , '\App\Http\Controllers\TagsController@index');
 
 
-Route::get('photo/review/{photo_id}', \App\Http\Livewire\User\UserReviewComponent::class)->name('photo.review');
 
 
 // User related pages

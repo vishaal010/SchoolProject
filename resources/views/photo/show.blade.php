@@ -44,7 +44,8 @@
              {{ $tags->name }}
          </div>
     @empty
-        <p> Geen Tags </p>
+        <p> {{ Auth::user()->id }} </p>
+        <p> {{ Auth::user()->created_at }} </p>
     @endforelse
 
     <div class="font-bold mt-12 pb-2 border-b border-gray-200">
@@ -54,11 +55,14 @@
 
     <div class="mt-8">
     </div>
-
+    @auth
     <button class="inline-flex items-center h-10 px-5 text-indigo-100 transition-colors duration-150 bg-indigo-700 rounded-lg focus:shadow-outline hover:bg-indigo-800">
-        <span>Reviews</span>
+        <a href="{{ route('review.make' , $photo->id) }}">
+ <span>Reviews</span>
+ </a>
     </button>
 
+    @endauth
 
 
 

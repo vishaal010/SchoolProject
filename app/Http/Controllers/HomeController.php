@@ -7,10 +7,13 @@ use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
+
+
 class HomeController extends Controller
 {
     public function __invoke(Request $request)
     {
+
         // Select * FROM photographies
         $photography = photo::all();
         $tags = Tag::all();
