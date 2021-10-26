@@ -36,6 +36,7 @@ class UserController extends Controller
 //        $users->first()->roles->first()->name;
 
 
+
         $users = User::with('roles')->paginate(10);
 
 
@@ -115,6 +116,11 @@ class UserController extends Controller
      */
     public function edit($id)
     {
+        $user = User::find($id);
+
+        var_dump($user->roles);
+        dd();
+
         return view('admin.users.edit',
             [
                 'roles' => Role::all(),

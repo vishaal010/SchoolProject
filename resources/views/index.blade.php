@@ -30,14 +30,24 @@
             <div class="font-bold mt-12 pb-2 border-b border-gray-200">
                 <h2> Tags: </h2>
             </div>
+
+
+
+
             @forelse($tag as $tag)
+                <form method="GET" action="{{url('/')}}">
                 <div
                      class="ml-2 text-xs inline-flex items-center font-bold leading-sm uppercase px-3 py-1 rounded-full bg-white text-gray-700 border">
+                    <button type="submit">
+                        <a type="text" href="?tag={{ $tag->name }}">
                     {{ $tag->name }}
+                    </a>
+                    </button>
                 </div>
             @empty
                 <p> Geen Tags </p>
             @endforelse
+                </form>
             <div class="mt-8 grid lg:grid-cols-3 gap-10">
                 @foreach($photo as $photo)
                 <!-- Cards -->

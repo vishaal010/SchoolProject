@@ -22,9 +22,10 @@ class PhotoController extends Controller
     {
         $userid = Auth::user()->id;
 
+
+
         // Select * FROM photographies
         $photo = DB::table('photo')->where('user_id',$userid)->get();
-
 
 
         return view('user.showcase', [
@@ -92,10 +93,20 @@ class PhotoController extends Controller
      */
     public function show($id)
     {
-        $user_id = User::findOrFail($id);
+
+        $created_at_user = Auth::user()->created_at;
+
+        $newDate = $created_at_user->addDays(5);
+
+        $validation = $newDate->isPast();
+
+
+
         $photo = photo::find($id);
 
-        return view('photo.show')->with('photo',$photo);
+        return view('photo.show')
+            ->with('photo',$photo)
+            ->with(compact('validation'));
     }
 
     /**
@@ -136,9 +147,9 @@ class PhotoController extends Controller
         return redirect('photo');
     }
 
-    public function validation ()
+    public function userid ()
     {
-        return Carbon::createFromTimestamp(-1)->toDateTimeString();
+
     }
 
 

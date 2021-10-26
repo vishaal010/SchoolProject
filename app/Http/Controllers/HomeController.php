@@ -18,14 +18,32 @@ class HomeController extends Controller
         $photography = photo::all();
         $tags = Tag::all();
 
+
+
         if (isset($_GET['search'])){
             $search_text = $_GET['search'];
-            $photos = DB::table('photo')->where('name', 'LIKE', '%'. $search_text. '%')->paginate(2);
+
+            $photos = DB::table('photo')
+                ->where('name', 'LIKE', '%'. $search_text. '%')
+
+                ->paginate(2);
             $photos->appends($request->all());
             return view('index', [
                 'photo' => $photos,
                 'tag'  => $tags
             ]);
+        }
+        elseif (isset($_GET['tag'])){
+            $tag = $_GET['tag'];
+
+            $spec_tag = Tag::with('photo')->where('name', 'LIKE', '%' . $tag . '%')->toSql();
+            dd($spec_tag);
+            $spec_tag->appends($request->all());
+            return view('index', [
+                'photo' => $spec_tag,
+                'tag'  => $tags
+            ]);
+
         }
         else {
             return view('index', [
@@ -33,6 +51,8 @@ class HomeController extends Controller
                 'tag'  => $tags
             ]);
         }
+
+
     }
 
     public function filterTags($slug){
