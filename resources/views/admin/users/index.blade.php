@@ -66,16 +66,18 @@
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
                 <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                    @if($user->status == 1)
-                        <a href="{{ route('user.status.update', [$user->id , 'status_code' => 0]) }}"> Active </a>
-                    @else
-                        <a href="{{ route('user.status.update', [$user->id , 'status_code' => 1]) }}"> Not Active</a>
 
-                    @endif
+                    <form method="POST" action="{{route('users.status')}}">
+                        @csrf
+                        <input type="hidden" value="{{$user->id}}" name="id">
+                        <input type="submit" @if ( $user->status ) value="Actief" @else value="Niet actief" @endif>
+
+                    </form>
+
                 </span>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                            {{  $users->first()->roles->first()->name }}
+                            {{  $user->roles->first()->name }}
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                 <a href="{{ route('admin.users.edit', $user->id) }}" class="text-indigo-600 hover:text-indigo-900">Edit</a>
@@ -90,7 +92,7 @@
                                     </form>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                    <a href="{{ route('admin.users.edit', $user->id) }}" class="text-indigo-600 hover:text-indigo-900">Collectie</a>
+                                    <a href="{{ route('admin.collection', $user->id) }}" class="text-indigo-600 hover:text-indigo-900">Collectie</a>
                                 </td>
                         </tr>
 

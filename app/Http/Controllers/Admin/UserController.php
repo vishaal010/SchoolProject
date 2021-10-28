@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Actions\Fortify\CreateNewUser;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUserRequest;
+use App\Models\photo;
 use App\Models\Role;
 use App\Models\User;
 use GrahamCampbell\ResultType\Success;
@@ -38,6 +39,7 @@ class UserController extends Controller
 
 
         $users = User::with('roles')->paginate(10);
+
 
 
         if (Gate::denies('logged-in')){
@@ -116,10 +118,6 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user = User::find($id);
-
-        var_dump($user->roles);
-        dd();
 
         return view('admin.users.edit',
             [
@@ -170,21 +168,26 @@ class UserController extends Controller
      * @return Success Response.
      */
 
-    public function updateStatus($user_id, $status_code)
+    public function updateStatus(Request $request)
     {
-        try {
-            $update_user = User::whereId($user_id)->update([
-                'status' => $status_code
-            ]);
 
-            if ($update_user){
-                return redirect()->route('admin.users.index')->with('succes', 'Gelukt');
-            }
-            return redirect()->route('admin.users.index')->with('error', 'Gefaald');
+        $id = $request->input('id');
 
-        } catch (\Throwable $th) {
-            throw $th;
-        }
+        $id = User::FindorFail($id);
+
+        $id->status = !$id->status;
+        $id->save();
+
+        return redirect()->route('admin.users.index')->with('succes', 'Gelukt');
+
+    }
+
+    public function collection($id)
+    {
+        $user = photo::findOrFail($id)->where('id');
+
+
+
     }
 
 }

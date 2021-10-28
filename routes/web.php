@@ -33,20 +33,20 @@ Route::resource('/review', ReviewController::class);
 
 Route::get('/tag/{tag}' , '\App\Http\Controllers\TagsController@index');
 
+Route::post('users/status', [UserController::class,'updateStatus'])->name('users.status');
+
+
 
 
 
 // User related pages
 Route::prefix('user')->middleware(['auth', 'verified'])->name('user.')->group(function (){
 Route::get('profile', Profile::class)->name('profile');
-Route::get('/users/status/{user_id}/{status_code}', [UserController::class,'updateStatus'])->name('status.update');
-
-
-
-
+//Route::get('/users/status/{user_id}/{status_code}', [UserController::class,'updateStatus'])->name('status.update');
 });
 
 // Admin Route
 Route::prefix('admin')->middleware(['auth', 'auth.isAdmin','verified'])->name('admin.')->group(function (){
     Route::resource('users', UserController::class);
+    Route::get('collection/{user_id}', [UserController::class, 'collection'])->name('collection');
 });

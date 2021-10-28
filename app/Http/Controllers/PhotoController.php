@@ -22,14 +22,12 @@ class PhotoController extends Controller
     {
         $userid = Auth::user()->id;
 
-
-
         // Select * FROM photographies
         $photo = DB::table('photo')->where('user_id',$userid)->get();
 
 
         return view('user.showcase', [
-            'photo' => $photo
+            'photo' => $photo,
         ]);
     }
 
@@ -93,21 +91,31 @@ class PhotoController extends Controller
      */
     public function show($id)
     {
+        if (Auth::check()) {
 
-        $created_at_user = Auth::user()->created_at;
+            $userid = Auth::user()->id;
 
-        $newDate = $created_at_user->addDays(5);
+            $validation = DB::table('days')
+                ->where('user_id', $userid)
+                ->distinct()
+                ->count('name');
 
-        $validation = $newDate->isPast();
+            $photo = photo::find($id);
 
+            return view('photo.show')
+                ->with('photo', $photo)
+                ->with(compact('validation'));
+        }
+        else{
 
+            $photo = photo::find($id);
 
-        $photo = photo::find($id);
+            return view('photo.show')
+                ->with('photo', $photo);
+        }
 
-        return view('photo.show')
-            ->with('photo',$photo)
-            ->with(compact('validation'));
     }
+
 
     /**
      * Show the form for editing the specified resource.

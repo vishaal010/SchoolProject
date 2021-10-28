@@ -1,6 +1,7 @@
 <?php
 
 use App\Providers\RouteServiceProvider;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Fortify\Features;
 
 return [
@@ -63,16 +64,23 @@ return [
 
     'home' => RouteServiceProvider::HOME,
 
-    /*
-    |--------------------------------------------------------------------------
-    | Fortify Routes Prefix / Subdomain
-    |--------------------------------------------------------------------------
-    |
-    | Here you may specify which prefix Fortify will assign to all the routes
-    | that it registers with the application. If necessary, you may change
-    | subdomain under which all of the Fortify routes will be available.
-    |
-    */
+
+
+
+
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Fortify Routes Prefix / Subdomain
+|--------------------------------------------------------------------------
+|
+| Here you may specify which prefix Fortify will assign to all the routes
+| that it registers with the application. If necessary, you may change
+| subdomain under which all of the Fortify routes will be available.
+|
+*/
 
     'prefix' => '',
 

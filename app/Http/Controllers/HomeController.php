@@ -4,20 +4,27 @@ namespace App\Http\Controllers;
 
 use App\Models\photo;
 use App\Models\Tag;
+use App\Models\Days;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Auth\Events\Login;
+use Illuminate\Database\Eloquent\Builder;
+use Carbon\Carbon;
+
+
 
 
 
 class HomeController extends Controller
 {
+
     public function __invoke(Request $request)
     {
 
         // Select * FROM photographies
         $photography = photo::all();
         $tags = Tag::all();
-
 
 
         if (isset($_GET['search'])){
@@ -36,12 +43,15 @@ class HomeController extends Controller
         elseif (isset($_GET['tag'])){
             $tag = $_GET['tag'];
 
-            $spec_tag = Tag::with('photo')->where('name', 'LIKE', '%' . $tag . '%')->toSql();
-            dd($spec_tag);
-            $spec_tag->appends($request->all());
+            $photo = photo::whereHas('tags',function ($query) use ($tag){
+                $query->where('name', 'LIKE', '%'. $tag . '%');
+            })->paginate(10);
+
+            $photo->appends($request->all());
             return view('index', [
-                'photo' => $spec_tag,
+                'photo' => $photo,
                 'tag'  => $tags
+
             ]);
 
         }

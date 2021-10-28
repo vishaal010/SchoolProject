@@ -56,7 +56,7 @@
     <div class="mt-8">
     </div>
     @auth
-        @if($validation)
+        @if($validation == 5)
     <button class="inline-flex items-center h-10 px-5 text-indigo-100 transition-colors duration-150 bg-indigo-700 rounded-lg focus:shadow-outline hover:bg-indigo-800">
         <a href="{{ route('review.make' , $photo->id) }}">
  <span>Reviews</span>
