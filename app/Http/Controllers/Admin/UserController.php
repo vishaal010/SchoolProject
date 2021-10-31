@@ -74,6 +74,11 @@ class UserController extends Controller
     public function store(StoreUserRequest $request)
     {
 
+        $request->validate([
+            'roles' => 'required',
+        ]);
+
+
         $newUser = new CreateNewUser();
 
         $user = $newUser->create($request->only(['name', 'email', 'password', 'password_confirmation']));

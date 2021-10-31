@@ -1,3 +1,13 @@
+@if ($errors->any())
+
+    <p class="text-red-500 text-xs italic">
+        @foreach ($errors->all() as $error)
+            {{ $error }}
+            <br>
+        @endforeach
+    </p>
+@endif
+
 @csrf
 <div class="flex flex-wrap -mx-3 mb-6">
     <div class="w-full px-3">

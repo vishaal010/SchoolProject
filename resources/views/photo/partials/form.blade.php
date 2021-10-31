@@ -1,5 +1,15 @@
 @csrf
 
+@if ($errors->any())
+
+    <p class="text-red-500 text-xs italic">
+        @foreach ($errors->all() as $error)
+            {{ $error }}
+            <br>
+        @endforeach
+    </p>
+@endif
+
 <input name="user_id" style="display: none"
        value="{{ Auth::user()->id  }}">
 
@@ -65,6 +75,8 @@
                     @isset($user) @if(in_array($tag->id, $user->tag->pluck('id')->toArray())) checked @endif @endisset>
                 <label class="" for="{{$tag->name}}"> {{$tag->name}} </label> <br>
             @endforeach
+
+
             <p class="text-gray-600 text-xs italic">Een wachtwoord wat je makkelijk kan onthouden</p>
         </div>
     </div>
@@ -75,6 +87,7 @@
         </label>
         <input name="imagepath" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="imagepath" type="file" >
         <p class="text-red-500 text-xs italic">
+
 
         </p>
     </div>

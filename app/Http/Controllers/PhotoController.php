@@ -75,7 +75,8 @@ class PhotoController extends Controller
         'user_id' => 'required',
         'location' => 'required',
         'description' => 'required',
-        'imagepath' => 'required|mimes:jpg,png,jpeg|max:5048'
+        'imagepath' => 'required|mimes:jpg,png,jpeg|max:5048',
+        'tags' => 'required',
     ]);
 
     $newImageName = time() . '-' . $request->name . '.' . $request->imagepath->extension();
