@@ -54,13 +54,10 @@
 {{--                    </div>--}}
 {{--                </div>--}}
             </div>
-            <h4 class="font-bold mt-12 pb-2 border-b border-gray-200">Populaire Foto's</h4>
         <div class="mt-8">
         </div>
             <div class="flex justify-center">
-                <div class="text-center my-6 btn bg-secondary-100 text-secondary-200 hover:shadow-inner transform hover:scale-75 hover:bg-opacity-50 transition ease-out duration-300">
-                    Laad meer
-                </div>
+
             </div>
         </div>
 

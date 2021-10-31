@@ -91,9 +91,9 @@
                                         @method('DELETE')
                                     </form>
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                    <a href="{{ route('admin.collection', $user->id) }}" class="text-indigo-600 hover:text-indigo-900">Collectie</a>
-                                </td>
+{{--                                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">--}}
+{{--                                    <a href="{{ route('admin.collection', $user->id) }}" class="text-indigo-600 hover:text-indigo-900">Collectie</a>--}}
+{{--                                </td>--}}
                         </tr>
 
                         @endforeach

@@ -53,7 +53,10 @@ class FortifyServiceProvider extends ServiceProvider
         Fortify::authenticateUsing(function (Request $request) {
             $user = User::where('email', $request->email)->first();
             if ($user &&
-                Hash::check($request->password, $user->password)) {
+                Hash::check($request->password, $user->password))
+
+            {
+
                 $user_id = $user->id;
                 $current_date = Carbon::now();
                 $day = Carbon::parse($current_date)->format('l');
@@ -61,6 +64,8 @@ class FortifyServiceProvider extends ServiceProvider
                     'user_id' => $user_id,
                     'name' => $day
                 ]);
+                $request->session()->flash('success', 'Gebruiker is ingelogd');
+
                 return $user;
             }
         });

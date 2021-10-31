@@ -28,7 +28,7 @@
 
 
 
-    <input name="photo_id"
+    <input name="photo_id" style="display: none"
            value="{{ $photo_id }}">
 
 

@@ -119,6 +119,17 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(photo::class);
     }
 
+    public function isAdministrator() {
+        return $this->roles()->where('name', 'admin')->exists();
+    }
+
+    public function reviews()
+    {
+        return $this->belongsTo(Review::class);
+    }
+
+
+
 
 
 

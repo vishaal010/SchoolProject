@@ -26,6 +26,8 @@ Route::resource('/photo', PhotoController::class);
 
 Route::get('/photo/{photo_id}/{user_id}', [PhotoController::class,'show'])->name('photo.view');
 
+//Route::get('/photo/{user_id}', [PhotoController::class,'showCollection'])->name('photo.collection');
+
 Route::get('/review/{photo_id}',[ReviewController::class,'create'])->name('review.make');
 
 
@@ -42,11 +44,13 @@ Route::post('users/status', [UserController::class,'updateStatus'])->name('users
 // User related pages
 Route::prefix('user')->middleware(['auth', 'verified'])->name('user.')->group(function (){
 Route::get('profile', Profile::class)->name('profile');
+
+
 //Route::get('/users/status/{user_id}/{status_code}', [UserController::class,'updateStatus'])->name('status.update');
 });
 
 // Admin Route
 Route::prefix('admin')->middleware(['auth', 'auth.isAdmin','verified'])->name('admin.')->group(function (){
     Route::resource('users', UserController::class);
-    Route::get('collection/{user_id}', [UserController::class, 'collection'])->name('collection');
+
 });

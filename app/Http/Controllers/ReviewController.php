@@ -56,8 +56,7 @@ class ReviewController extends Controller
             'user_id' => $request->input('user_id')
     ]);
 
-
-
+        return redirect('photo');
 
     }
 

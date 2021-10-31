@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\photo;
+use App\Models\Review;
 use App\Models\Tag;
 use App\Models\Days;
 use Illuminate\Http\Request;
@@ -58,7 +59,7 @@ class HomeController extends Controller
         else {
             return view('index', [
                 'photo' => $photography,
-                'tag'  => $tags
+                'tag'  => $tags,
             ]);
         }
 

@@ -53,11 +53,14 @@
         <div class="flex justify-center md:justify-end">
             @if (Route::has('login'))
                 @auth
-
+                    @if(Auth::user()->isAdministrator())
+                        <a href="admin/users" class="text-primary ml-2 btn border-primary md:border-2 hover:bg-primary hover:text-white transition ease-out duration-500">Admin menu</a>
+                    @endif
                 <a href="{{route('photo.create')}}" class="text-primary ml-2 btn border-primary md:border-2 hover:bg-primary hover:text-white transition ease-out duration-500">Upload een foto</a>
                 <a href="{{route('user.profile')}}" class="text-primary ml-2 btn border-primary md:border-2 hover:bg-primary hover:text-white transition ease-out duration-500">Mijn Profiel</a>
                 <a href="{{route('photo.index')}}" class="text-primary ml-2 btn border-primary md:border-2 hover:bg-primary hover:text-white transition ease-out duration-500">Mijn Foto's</a>
                 <a href="{{route('logout')}}" onclick="event.preventDefault(); document.getElementById('logout-form').submit()" class="text-primary ml-2 btn border-primary md:border-2 hover:bg-primary hover:text-white transition ease-out duration-500">Logout</a>
+
 
 
                     <form id="logout-form" action="{{route('logout')}}" method="post" style="display: none">

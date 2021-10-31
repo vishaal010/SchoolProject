@@ -13,15 +13,16 @@ class Review extends Model
 
     protected $fillable = ['user_id', 'photo_id', 'comment'];
 
-    public function user()
+    public function users()
     {
-        return $this->hasMany(User::class);
+        return $this->belongsTo(User::class);
     }
 
-    public function reviews()
+    public function photo()
     {
-        return $this->belongsTo(photo::class);
+        return $this->belongsTo(Photo::class);
     }
+
 
 
 }

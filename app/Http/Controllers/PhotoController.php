@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Review;
 use App\Models\Tag;
 use App\Models\User;
 use Carbon\Carbon;
@@ -30,6 +31,21 @@ class PhotoController extends Controller
             'photo' => $photo,
         ]);
     }
+
+
+//    public function showCollection()
+//    {
+//        $userid = $request->route('id');
+//
+//
+//        // Select * FROM photographies
+//        $photo = DB::table('photo')->where('user_id',$userid)->get();
+//
+//
+//        return view('user.showcase', [
+//            'photo' => $photo,
+//        ]);
+//    }
 
 
     /**
@@ -79,6 +95,9 @@ class PhotoController extends Controller
 
        $photo->tags()->sync($request->tags);
 
+        $request->session()->flash('success', 'Foto is geupload');
+
+
         return redirect('photo');
 
     }
@@ -102,16 +121,34 @@ class PhotoController extends Controller
 
             $photo = photo::find($id);
 
+//            $reviews = DB::table('reviews')
+//                ->join('users', 'users.id', '=', 'reviews.user_id')
+//                ->join('photo', 'photo.id', '=', 'reviews.photo_id')
+//                ->where('photo.id', '=' . $photo . '')
+//                ->get();
+
+            $reviews = Review::with('photo','users')->get();
+//                ->join('users', 'users.id', '=', 'reviews.user_id')
+//                ->join('photo', 'photo.id', '=', 'reviews.photo_id')
+//                ->where('photo.id', '=' . $photo . '')
+//                ->get();
+
+            if (photo::where('id', '='. $photo)->exists()) {
+                dd($reviews);
+            }
+
             return view('photo.show')
                 ->with('photo', $photo)
-                ->with(compact('validation'));
+                ->with(compact('reviews', 'validation'));
         }
         else{
+            $reviews = Review::with('photo','users')->get();
 
             $photo = photo::find($id);
 
             return view('photo.show')
-                ->with('photo', $photo);
+                ->with('photo', $photo)
+                ->with(compact('reviews'));
         }
 
     }
@@ -150,7 +187,7 @@ class PhotoController extends Controller
     {
         Photo::destroy($id);
 
-        $request->session()->flash('success', 'Gebruiker is verwijderd');
+        $request->session()->flash('success', 'Foto is verwijderd');
 
         return redirect('photo');
     }

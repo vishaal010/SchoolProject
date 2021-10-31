@@ -55,8 +55,24 @@
 
     <div class="mt-8">
     </div>
+
+
+
+    <div class="font-bold mt-12 pb-2 border-b border-gray-200">
+        <h2> Review: </h2>
+    </div>
+    @foreach($reviews  as $review)
+{{--        @foreach( $review->users->name as $username)--}}
+{{--            <p> {{ $username }} </p>--}}
+            <p> Naam zegt : {{ $review->comment }} </p>
+        @endforeach
+{{--    @endforeach--}}
+
+
+
+
     @auth
-        @if($validation == 5)
+        @if($validation >= 5)
     <button class="inline-flex items-center h-10 px-5 text-indigo-100 transition-colors duration-150 bg-indigo-700 rounded-lg focus:shadow-outline hover:bg-indigo-800">
         <a href="{{ route('review.make' , $photo->id) }}">
  <span>Reviews</span>

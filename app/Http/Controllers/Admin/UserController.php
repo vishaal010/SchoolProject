@@ -6,6 +6,7 @@ use App\Actions\Fortify\CreateNewUser;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUserRequest;
 use App\Models\photo;
+use App\Models\Review;
 use App\Models\Role;
 use App\Models\User;
 use GrahamCampbell\ResultType\Success;
@@ -72,9 +73,6 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
-//        $validatedData = $request->validated();
-//
-//        $user = User::create($validatedData);
 
         $newUser = new CreateNewUser();
 
@@ -138,6 +136,14 @@ class UserController extends Controller
     {
         $user = User::findorFail($id);
 
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'roles' => 'required',
+        ]);
+
+
+
         $user->update($request->except(['_token', 'roles']));
         $user->roles()->sync($request->roles);
 
@@ -182,12 +188,5 @@ class UserController extends Controller
 
     }
 
-    public function collection($id)
-    {
-        $user = photo::findOrFail($id)->where('id');
-
-
-
-    }
 
 }
