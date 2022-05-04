@@ -1,2 +1,3 @@
 # SchoolProject
- School opdracht voor PRG05
+ Complete CRUD in Laravel met Extra Features 
+ Cijfer 8.8
