@@ -1,3 +1,3 @@
 # SchoolProject
- Complete CRUD in Laravel met extra Features <br>
+ Complete CRUD in Laravel with extra features <br>
  Cijfer 8.8
